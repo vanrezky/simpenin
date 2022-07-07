@@ -116,6 +116,9 @@
                         notification('Opps..', response.message, response.info_lanjut);
                     }
                     return
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });

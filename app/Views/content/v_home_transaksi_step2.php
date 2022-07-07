@@ -94,6 +94,9 @@
                         if (response.success === false) {
                             notification('Opps..', response.message);
                         }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('ada error, ' + errorThrown);
                     }
                 });
             }

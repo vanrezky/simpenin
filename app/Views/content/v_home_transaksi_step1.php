@@ -204,6 +204,9 @@
                         notification('Opps..', response.message, response.info_lanjut);
                     }
                     return
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });
@@ -233,6 +236,9 @@
                         notification('Opps..', response.message, response.info_lanjut);
                     }
                     return
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });
@@ -256,6 +262,9 @@
                     form.find('[name="tinggi"]').val(response.tinggi);
                     form.find('[total]').text(response.total.toLocaleString('de-DE'));
                     $("#clicker-detail").click();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });
@@ -306,6 +315,9 @@
                 dataType: "json",
                 success: function(response) {
                     notification('Sukses..', response.message);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
             $(`[detailBarang="${id}"]`).remove();

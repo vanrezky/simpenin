@@ -45,7 +45,8 @@ class Kirim extends BaseController
         $data = [
             'title' => 'List Barang Gudang',
             'data' => $transaksi,
-            'q' => $this->request->getGet('q')
+            'q' => $this->request->getGet('q'),
+            'back' => '/kirim',
 
         ];
         return view('content/v_kirim_detail', $data);

@@ -21,7 +21,9 @@
         <div class="divider mb-2"></div>
         <div class="text-center mb-3"><small>Pilih barang mana yang mau kamu kirim</small></div>
         <div id="kumpulan-barang">
-            <?php foreach ($data['detail'] as $k => $v) { ?>
+            <?php foreach ($data['detail'] as $k => $v) {
+                $volume_barang = $v['panjang'] * $v['lebar'] * $v['tinggi'];
+            ?>
                 <a href="javascript:void(0)">
                     <div class="d-flex mb-4">
                         <div class="align-self-center">
@@ -29,12 +31,12 @@
                         </div>
                         <div class="align-self-center">
                             <h2 class="font-16 line-height-s mt-1 mb-n1"><?= $v['nama_barang'] ?></h2>
-                            <p class="mb-0 font-11 mt-2"><?= toUang($v['panjang'] * $v['lebar'] * $v['qty']); ?></p>
+                            <p class="mb-0 font-11 mt-2"><?= toUang($volume_barang); ?></p>
                         </div>
                         <div class="ml-auto pl-3 align-self-center row">
                             <div class="rounded-s switch-s mr-2">
                                 <input type="hidden" value="<?= $v['id_transaksi_detail']; ?>" name="barang[]">
-                                <input type="number" name="qty[]" min="1" value="0" class="input-qty color-blue-dark" data-id="<?= $v['id_transaksi_detail']; ?>" data-luas="<?= $v['panjang'] * $v['lebar'] * $v['qty']; ?>" data-qty="<?= $v['qty']; ?>">
+                                <input type="number" name="qty[]" min="1" value="0" class="input-qty color-blue-dark" data-id="<?= $v['id_transaksi_detail']; ?>" data-luas="<?= $volume_barang; ?>" data-qty="<?= $v['qty']; ?>">
                                 <span class="font-19 font-600 color-blue-dark">/ <?= $v['qty']; ?></span>
                             </div>
                         </div>
@@ -226,23 +228,13 @@
                     if (!response.success) {
                         notification('Opps..', response.message);
                     }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });
 
-
-        $("[bSimpan]").click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: "post",
-                url: "/",
-                data: "data",
-                dataType: "dataType",
-                success: function(response) {
-
-                }
-            });
-        });
 
 
         $("#form-penerima").submit(function(e) {
@@ -264,6 +256,9 @@
                         notification('Opps..', response.message, response.info_lanjut);
                     }
                     return
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });

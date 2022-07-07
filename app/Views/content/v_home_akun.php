@@ -78,6 +78,9 @@
                         notification('Opps..', response.message);
                     }
                     return
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });

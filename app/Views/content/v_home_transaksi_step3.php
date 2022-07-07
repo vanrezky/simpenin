@@ -205,6 +205,9 @@
                     } else {
                         $(".sebelum-diskon").removeClass('coret').text('Rp' + response.pembayaran.total_bayar.toLocaleString('de-DE'));
                         $(".sesudah-diskon").hide().text('');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('ada error, ' + errorThrown);
                     }
                 }
             });
@@ -240,6 +243,9 @@
                     $(".step3-1, .step3-2, .step3-3").addClass('d-none');
                     $(".step3-4").removeClass('d-none');
                     $(".header-fixed").addClass('d-none');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });
@@ -262,6 +268,9 @@
                 success: function(response) {
                     $(".alamat").text(alamat_penerima);
                     $(".close-menu").click();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('ada error, ' + errorThrown);
                 }
             });
         });
