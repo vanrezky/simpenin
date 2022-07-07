@@ -68,10 +68,10 @@
                 </div>
                 <div class="align-self-center">
                     <h2 class="font-12 line-height-s mt-1 mb-n1">Rumah</h2>
-                    <span class="mb-0 font-11 mt-0"><?= $user['alamat']; ?></span>
+                    <span class="mb-0 font-11 mt-0 alamat"><?= $user['alamat']; ?></span>
                 </div>
                 <div class="ml-auto align-self-center" style="font-size: 20px;">
-                    <a href="#"><i class="fa fa-edit"></i></a>
+                    <a href="javascript:void" data-menu="menu-edit-alamat"><i class="fa fa-edit"></i></a>
                 </div>
             </div>
             <p class="font-15 mb-3 mt-4">Details</p>
@@ -113,13 +113,28 @@
             </div>
         </div>
     </div>
+    <?= form_hidden('ukuran', $transaksi['ukuran']); ?>
+    <?= form_hidden('jumlah_hari', $tanggal['jumlah_hari']); ?>
+    <?= form_hidden('diskon', $detailbayar['diskon']); ?>
+    <?= form_hidden('bayar', $detailbayar['bayar']); ?>
+    <?= form_hidden('total_bayar', $detailbayar['total_bayar']); ?>
 </form>
+<!-- tambah barang -->
+<div id="menu-edit-alamat" class="menu menu-box-modal rounded-m bg-theme" data-menu-width="350" data-menu-height="250">
+    <div class="menu-title">
+        <h1 class="font-800" modal-title>Alamat</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+    </div>
+    <div class="content" id="form-barang">
+        <div class="input-style input-style-1">
+            <input type="text" value="<?= $user['alamat']; ?>" placeholder="Tulis alamat kamu.." name="alamat" required>
+        </div>
+        <div class="text-center">
+            <button type="button" id="btn-alamat" class="btn gradient-blue font-13 btn-m font-600 mt-3 rounded-s">Simpan</button>
+        </div>
+    </div>
+</div>
 
-<?= form_hidden('ukuran', $transaksi['ukuran']); ?>
-<?= form_hidden('jumlah_hari', $tanggal['jumlah_hari']); ?>
-<?= form_hidden('diskon', $detailbayar['diskon']); ?>
-<?= form_hidden('bayar', $detailbayar['bayar']); ?>
-<?= form_hidden('total_bayar', $detailbayar['total_bayar']); ?>
 
 <style>
     .thumb1 {
@@ -159,6 +174,7 @@
 
 <?= $this->section('script'); ?>
 <script>
+    let alamat_penerima = '<?= $user['alamat']; ?>';
     $(document).ready(function() {
 
         $("[name='mulai'], [name='selesai']").change(function(e) {
@@ -203,6 +219,10 @@
             }
 
             if (divClass == 'step3-2') {
+                if (alamat_penerima == '') {
+                    notification('Opps..', 'Alamat tidak boleh kosong!')
+                    return false;
+                }
                 $(".step3-1, .step3-2, .step3-4").addClass('d-none');
                 $(".step3-3").removeClass('d-none');
             }
@@ -210,17 +230,38 @@
 
         $("[bMetodeBayar]").click(function(e) {
             e.preventDefault();
-            $(".step3-1, .step3-2, .step3-3").addClass('d-none');
-            $(".step3-4").removeClass('d-none');
-            $(".header-fixed").addClass('d-none');
+            $.ajax({
+                type: "post",
+                url: "/simpan/transaksi-step3-save/" + '<?= $transaksi['id_transaksi'] ?>',
+                data: $("#form-input").serialize() + "&metode=" + $(this).attr('bMetodeBayar'),
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    $(".step3-1, .step3-2, .step3-3").addClass('d-none');
+                    $(".step3-4").removeClass('d-none');
+                    $(".header-fixed").addClass('d-none');
+                }
+            });
+        });
+
+        $('#btn-alamat').click(function(e) {
+            e.preventDefault();
+            alamat_penerima = $("[name='alamat']").val();
+            if (alamat_penerima == '') {
+                notification('Opps..', 'Alamat tidak boleh kosong!');
+                return false;
+            }
 
             $.ajax({
                 type: "post",
-                url: "/simpan/transaksi-step3-save/" + <?= $transaksi['id_transaksi'] ?>,
-                data: $("#form-input").val(),
+                url: "/akun/alamat",
+                data: {
+                    alamat: alamat_penerima
+                },
                 dataType: "json",
                 success: function(response) {
-                    console.log(bayar);
+                    $(".alamat").text(alamat_penerima);
+                    $(".close-menu").click();
                 }
             });
         });

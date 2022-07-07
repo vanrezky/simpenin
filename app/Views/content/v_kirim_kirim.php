@@ -1,7 +1,7 @@
 <?= $this->extend('template'); ?>
 <?= $this->section('content'); ?>
 <form class="card" id="form-kirim">
-    <input type="hidden" name="id_transaksi" value="">
+    <input type="hidden" name="id_transaksi" value="<?= $data['id_transaksi']; ?>">
     <input type="hidden" name="total" value="">
     <input type="hidden" name="ukuran" value="">
     <input type="hidden" name="metode_bayar" value="">
@@ -84,7 +84,7 @@
                 <span><i class="fa fa-bus" style="font-size:15px"></i> JNE YES</span>
             </div>
             <div class="mb-5">
-                <p class="font-20 mb-1 color-blue-light">Rp <span total-harga>0</span></p>
+                <p class="font-20 mb-1 color-blue-light">Rp <span total-harga>45.000</span></p>
             </div>
             <div class="text-center">
                 <a href="javascript:void(0)" bNext="step3" class="btn btn-l mt-2 font-13 font-600 rounded-s shadow-l mb-4 gradient-highlight">Bayar</a>
@@ -125,13 +125,11 @@
         <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
     </div>
     <form class="content" id="form-penerima">
-        <div class="input-style input-style-2">
-            <span class="input-style-1-active">Nama Penerima</span>
-            <input type="text" value="<?= $user['penerima']; ?>" name="penerima" required>
+        <div class="input-style input-style-1">
+            <input type="text" value="<?= $user['penerima']; ?>" placeholder="Nama penerima.." name="penerima" required>
         </div>
-        <div class="input-style input-style-2">
-            <span class="input-style-1-active">Alamat Penerima</span>
-            <input type="text" value="<?= $user['alamat_penerima']; ?>" name="alamat_penerima" required>
+        <div class="input-style input-style-1">
+            <input type="text" value="<?= $user['alamat_penerima']; ?>" placeholder="Alamat penerima.." name="alamat_penerima" required>
         </div>
         <div class="text-center">
             <button type="submit" class="btn gradient-blue font-13 btn-m font-600 mt-3 rounded-s">Perbarui</button>
@@ -280,7 +278,7 @@
         })
 
         $("[total-size]").text(total_size.toLocaleString('de-DE'));
-        hitungTotal(total_size);
+        // hitungTotal(total_size);
         $("[name='ukuran']").val(total_size);
         return total_size;
     }

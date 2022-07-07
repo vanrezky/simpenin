@@ -20,9 +20,9 @@
                     </div>
                 </a>
                 <?php
-                // if ($value['jumlah_kirim'] > 0) {
-                echo "<a href='/kirim/pengiriman/$value[id_transaksi]'><small>" . toUang($value['jumlah_kirim']) . " barang sedang dikirim</small></a>";
-                // }
+                if ($value['jumlah_kirim'] > 0) {
+                    echo "<a href='/kirim/pengiriman/$value[id_transaksi]'><small>" . toUang($value['jumlah_kirim']) . " barang sedang dikirim</small></a>";
+                }
                 ?>
 
                 <div class="divider"></div>

@@ -84,7 +84,8 @@ class Kirim extends BaseController
                 'alamat' => $user['alamat_penerima'],
                 'id_transaksi' => $this->request->getPost('id_transaksi'),
                 'ukuran' => $this->request->getPost('ukuran'),
-                'harga' => $this->request->getPost('total'),
+                // 'harga' => $this->request->getPost('total'),
+                'harga' => 45000,
                 'metode_bayar' => $this->request->getPost('metode_bayar'),
             ];
             $db = (new KirimModel());

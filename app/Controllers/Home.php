@@ -42,7 +42,7 @@ class Home extends BaseController
     public function detail($id)
     {
         $gudang = $this->gudang->where('id_gudang', $id)->first();
-        $transaksi = $this->transaksi->select("SUM(ukuran) as total", false)->where('id_gudang', $gudang['id_gudang'])->first();
+        $transaksi = $this->transaksi->select("SUM(ukuran) as total", false)->where(['id_gudang' => $gudang['id_gudang'], 'status' => 1])->first();
         if ($gudang) {
 
             $data = [
@@ -406,7 +406,6 @@ class Home extends BaseController
         $data = (new UserModel())->find(session('_ci_user_login.id_user'));
 
         if ($this->request->isAJAX() && $this->request->getMethod() == 'post') {
-
             $valid = $this->validate([
                 'alamat' => [
                     'rules' => 'required',

@@ -195,4 +195,13 @@
     <script type="text/javascript" src="/assets/scripts/custom.js"></script>
     <script type="text/javascript" src="/assets/scripts/van.js"></script>
     <?= $this->renderSection('script'); ?>
+
+
+    <script>
+        $(document).ready(function() {
+            $("input:text").each(function(e) {
+                $(this).attr('autocomplete', 'off');
+            })
+        });
+    </script>
 </body>

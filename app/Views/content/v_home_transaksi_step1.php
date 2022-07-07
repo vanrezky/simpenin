@@ -13,8 +13,10 @@
         <div class="text-center mb-3"><small>Masukkan barang barang yang mau kamu simpen</small></div>
         <div class="row" id="kumpulan-barang">
             <?php
+            $total_sub_transaksi = 0;
             if (!empty($transaksi)) {
                 foreach ($transaksi['detail'] as $k => $v) {
+                    $total_sub_transaksi += $v['panjang'] * $v['lebar'] * $v['tinggi'];
                     echo '<a href="javascript:void(0)" class="col-4 mb-4 text-center" detailBarang="' . $v['id_transaksi_detail'] . '">
                     <img src="/uploads/images/' . $v['gambar'] . '" alt="" class="img-fluid thumb1 rounded-circle shadow-xl">
                     <small class="color-black">' . $v['nama_barang'] . '</small>
@@ -26,7 +28,7 @@
         <div class="divider mt-5"></div>
         <div class="text-center">
             <p class="mb-2">Total Size (cm3):<br>
-                <b total-size><?= toUang($transaksi['ukuran']); ?></b>
+                <b total-size><?= toUang(round($total_sub_transaksi, 2)); ?></b>
             </p>
             <a href="/simpan/transaksi-step2/<?= $transaksi['id_transaksi'] . (!empty($kirim) ? "?kirim=$kirim" : '') ?>" class="btn btn-l font-13 font-600 rounded-s shadow-l mb-4 gradient-highlight">Lanjut</a>
         </div>

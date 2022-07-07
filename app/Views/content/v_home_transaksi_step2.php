@@ -17,7 +17,9 @@
         <div class="text-center mb-3"><small>Masukkan kuantiti barang barang kamu</small></div>
         <div id="kumpulan-barang">
 
-            <?php foreach ($transaksi['detail'] as $k => $v) { ?>
+            <?php foreach ($transaksi['detail'] as $k => $v) {
+                $luas_digunakan = $v['panjang'] * $v['lebar'] * $v['tinggi'] * $v['qty'];
+            ?>
                 <a href="javascript:void(0)">
                     <div class="d-flex mb-4">
                         <div class="align-self-center">
@@ -25,11 +27,11 @@
                         </div>
                         <div class="align-self-center">
                             <h2 class="font-16 line-height-s mt-1 mb-n1"><?= $v['nama_barang'] ?></h2>
-                            <p class="mb-0 font-11 mt-2"><?= toUang($v['panjang'] * $v['lebar'] * $v['qty']); ?></p>
+                            <p class="mb-0 font-11 mt-2"><?= toUang($luas_digunakan); ?></p>
                         </div>
                         <div class="ml-auto pl-3 align-self-center row">
                             <div class="rounded-s switch-s mr-2">
-                                <input type="number" name="qty" min="1" value="<?= $v['qty']; ?>" class="input-qty color-blue-dark" data-id="<?= $v['id_transaksi_detail']; ?>" data-luas="<?= $v['panjang'] * $v['lebar'] * $v['qty']; ?>">
+                                <input type="number" name="qty" min="1" value="<?= $v['qty']; ?>" class="input-qty color-blue-dark" data-id="<?= $v['id_transaksi_detail']; ?>" data-luas="<?= $luas_digunakan; ?>">
                                 <span class="font-17 font-600 color-blue-dark">| <?= $v['satuan']; ?></span>
                             </div>
                         </div>

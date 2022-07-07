@@ -66,6 +66,7 @@ $routes->group('akun', [], function ($routes) {
     $routes->match(['get', 'post'], 'alamat', 'Home::akunAlamat');
     $routes->match(['get', 'post'], 'data', 'Home::akunData');
     $routes->post('penerima', 'Home::akunAlamatPenerima');
+    $routes->post('alamat', 'Home::akunAlamat');
 });
 $routes->group('gudang', [], function ($routes) {
     $routes->get('/', 'Gudang::index');
